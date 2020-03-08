@@ -9,7 +9,9 @@ public final class Window extends JFrame {
     public Window(@NotNull final Settings settings) {
         setTitle("Змейка");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
         setSize(settings.getWindowSizePerDimension(), settings.getWindowSizePerDimension());
+        setResizable(false);
 
         add(new Field(settings));
 
