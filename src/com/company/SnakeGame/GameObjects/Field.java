@@ -75,29 +75,12 @@ public class Field extends JPanel implements ActionListener {
         }
     }
 
-    public void move() {
-        for (int i = snake.getSize(); i > 0; i--) {
-            snake.setX(i, snake.getX(i - 1));
-            snake.setY(i, snake.getY(i - 1));
-        }
-
-        if (snake.isLeftDirection()) {
-            snake.decX(0);
-        } else if (snake.isRightDirection()) {
-            snake.incX(0);
-        } else if (snake.isUpDirection()) {
-            snake.decY(0);
-        } else if (snake.isDownDirection()) {
-            snake.incY(0);
-        }
-    }
-
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if (isInGame) {
             checkApple();
             checkCollisions();
-            move();
+            snake.move();
         }
 
         repaint();
@@ -137,14 +120,14 @@ public class Field extends JPanel implements ActionListener {
             super.keyPressed(ev);
             int key = ev.getKeyCode();
 
-            if (key == KeyEvent.VK_LEFT && !snake.isRightDirection()) {
-                snake.setCurrentDirection(Snake.Directions.LEFT);
-            } else if (key == KeyEvent.VK_RIGHT && !snake.isLeftDirection()) {
-                snake.setCurrentDirection(Snake.Directions.RIGHT);
-            } else if (key == KeyEvent.VK_UP && !snake.isDownDirection()) {
-                snake.setCurrentDirection(Snake.Directions.UP);
-            } else if (key == KeyEvent.VK_DOWN && !snake.isUpDirection()) {
-                snake.setCurrentDirection(Snake.Directions.DOWN);
+            if (key == KeyEvent.VK_LEFT && !snake.isMovingRight()) {
+                snake.setMovingDirection(Snake.Directions.LEFT);
+            } else if (key == KeyEvent.VK_RIGHT && !snake.isMovingLeft()) {
+                snake.setMovingDirection(Snake.Directions.RIGHT);
+            } else if (key == KeyEvent.VK_UP && !snake.isMovingDown()) {
+                snake.setMovingDirection(Snake.Directions.UP);
+            } else if (key == KeyEvent.VK_DOWN && !snake.isMovingUp()) {
+                snake.setMovingDirection(Snake.Directions.DOWN);
             }
         }
     }

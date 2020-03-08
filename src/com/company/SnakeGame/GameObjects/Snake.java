@@ -16,7 +16,7 @@ public final class Snake {
     private final int[] xs;
     private final int[] ys;
 
-    private Directions currentDirection;
+    private Directions movingDirection;
 
     public Snake(
             @NotNull Image snakeDotImage,
@@ -32,7 +32,7 @@ public final class Snake {
         ys = new int[xs.length];
         initCoords(startX);
 
-        currentDirection = Directions.RIGHT;
+        movingDirection = Directions.RIGHT;
     }
 
     private void initCoords(final int startX) {
@@ -70,43 +70,47 @@ public final class Snake {
         ys[index] = value;
     }
 
-    public void incX(int index) {
-        xs[0] += dotSize;
+    public void move() {
+        moveTail();
+        moveHead();
     }
 
-    public void decX(int index) {
-        xs[0] -= dotSize;
+    private void moveTail() {
+        for (int i = getSize(); i > 0; i--) {
+            setX(i, getX(i - 1));
+            setY(i, getY(i - 1));
+        }
     }
 
-    public void incY(int index) {
-        ys[0] += dotSize;
+    private void moveHead() {
+        if (isMovingLeft()) {
+            xs[0] -= dotSize;
+        } else if (isMovingRight()) {
+            xs[0] += dotSize;
+        } else if (isMovingUp()) {
+            ys[0] -= dotSize;
+        } else if (isMovingDown()) {
+            ys[0] += dotSize;
+        }
     }
 
-    public void decY(int index) {
-        ys[0] -= dotSize;
+    public void setMovingDirection(Directions direction) {
+        movingDirection = direction;
     }
 
-    public Directions getCurrentDirection() {
-        return currentDirection;
+    public boolean isMovingLeft() {
+        return movingDirection == Directions.LEFT;
     }
 
-    public void setCurrentDirection(Directions direction) {
-        currentDirection = direction;
+    public boolean isMovingUp() {
+        return movingDirection == Directions.UP;
     }
 
-    public boolean isLeftDirection() {
-        return currentDirection == Directions.LEFT;
+    public boolean isMovingRight() {
+        return movingDirection == Directions.RIGHT;
     }
 
-    public boolean isUpDirection() {
-        return currentDirection == Directions.UP;
-    }
-
-    public boolean isRightDirection() {
-        return currentDirection == Directions.RIGHT;
-    }
-
-    public boolean isDownDirection() {
-        return currentDirection == Directions.DOWN;
+    public boolean isMovingDown() {
+        return movingDirection == Directions.DOWN;
     }
 }
