@@ -12,7 +12,7 @@ import java.util.Random;
 
 import static com.company.SnakeGame.Settings.*;
 
-public class GameField extends JPanel implements ActionListener {
+public class Field extends JPanel implements ActionListener {
     private final Snake snake;
     private final Apple apple;
 
@@ -27,7 +27,7 @@ public class GameField extends JPanel implements ActionListener {
     private boolean down = false;
     private boolean isInGame = true;
 
-    public GameField(
+    public Field(
             @NotNull Image snakeDotImage,
             @NotNull Image appleImage
     ) {
