@@ -31,6 +31,7 @@ public class Field extends JPanel implements ActionListener {
     }
 
     Timer timer;
+    private boolean isPlaying;
 
     private final int dotSize;
     private final Snake snake;
@@ -39,10 +40,15 @@ public class Field extends JPanel implements ActionListener {
 
     public Field(@NotNull Settings settings) {
         setSize(settings.getWindowSizePerDimension(), settings.getWindowSizePerDimension());
+        setBorder(BorderFactory.createLineBorder(Color.white));
+        setBackground(Color.black);
 
-        this.dotSize = settings.getDotSize();
+        addKeyListener(new FieldKeyListener());
 
         timer = new Timer(100, this);
+        isPlaying = true;
+
+        this.dotSize = settings.getDotSize();
         snake = new Snake(
                 new ImageIcon(settings.getSnakeDotImageLocation()).getImage(),
                 this.dotSize, settings.getAllDotsNumber(),
@@ -50,14 +56,8 @@ public class Field extends JPanel implements ActionListener {
         apple = new Apple(new ImageIcon(settings.getAppleImageLocation()).getImage());
         random = new Random();
 
-        this.setBorder(BorderFactory.createLineBorder(Color.white));
-
-        System.out.println(this.getWidth());
-        System.out.println(this.getHeight());
-
-        setBackground(Color.black);
+        setVisible(true);
         setFocusable(true);
-        addKeyListener(new FieldKeyListener());
 
         startGame();
     }
