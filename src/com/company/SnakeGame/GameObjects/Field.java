@@ -30,7 +30,7 @@ public class Field extends JPanel implements ActionListener {
         }
     }
 
-    private boolean isPlaying = true;
+    Timer timer;
 
     private final int dotSize;
 
@@ -43,6 +43,7 @@ public class Field extends JPanel implements ActionListener {
 
         this.dotSize = settings.getDotSize();
 
+        timer = new Timer(100, this);
         snake = new Snake(
                 new ImageIcon(settings.getSnakeDotImageLocation()).getImage(),
                 this.dotSize, settings.getAllDotsNumber(),
