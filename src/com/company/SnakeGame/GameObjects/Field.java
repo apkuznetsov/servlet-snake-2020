@@ -127,10 +127,18 @@ public class Field extends JPanel implements ActionListener {
                 && snake.getY(0) == apple.getY();
     }
 
+    @Override
+    protected void paintComponent(Graphics gr) {
+        super.paintComponent(gr);
+
+        if (isPlaying) {
+            drawSnake(gr);
+            drawApple(gr);
+        } else {
+            timer.stop();
+            drawGameOver(gr);
         }
-        if (snake.getX(0) < 0) {
-            isPlaying = false;
-        }
+    }
 
     private void drawSnake(Graphics gr) {
         for (int snakeDot = 0; snakeDot < snake.getSize(); snakeDot++) {
