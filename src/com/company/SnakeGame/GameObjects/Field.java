@@ -22,10 +22,6 @@ public class Field extends JPanel implements ActionListener {
 
     private Timer timer;
 
-    private boolean left = false;
-    private boolean right = true;
-    private boolean up = false;
-    private boolean down = false;
     private boolean isInGame = true;
 
     public Field(
@@ -85,13 +81,13 @@ public class Field extends JPanel implements ActionListener {
             snake.setY(i, snake.getY(i - 1));
         }
 
-        if (left) {
+        if (snake.isLeftDirection()) {
             snake.decX(0);
-        } else if (right) {
+        } else if (snake.isRightDirection()) {
             snake.incX(0);
-        } else if (up) {
+        } else if (snake.isUpDirection()) {
             snake.decY(0);
-        } else if (down) {
+        } else if (snake.isDownDirection()) {
             snake.incY(0);
         }
     }
@@ -141,22 +137,14 @@ public class Field extends JPanel implements ActionListener {
             super.keyPressed(ev);
             int key = ev.getKeyCode();
 
-            if (key == KeyEvent.VK_LEFT && !right) {
-                left = true;
-                up = false;
-                down = false;
-            } else if (key == KeyEvent.VK_RIGHT && !left) {
-                right = true;
-                up = false;
-                down = false;
-            } else if (key == KeyEvent.VK_UP && !down) {
-                up = true;
-                left = false;
-                right = false;
-            } else if (key == KeyEvent.VK_DOWN && !up) {
-                down = true;
-                left = false;
-                right = false;
+            if (key == KeyEvent.VK_LEFT && !snake.isRightDirection()) {
+                snake.setCurrentDirection(Snake.Directions.LEFT);
+            } else if (key == KeyEvent.VK_RIGHT && !snake.isLeftDirection()) {
+                snake.setCurrentDirection(Snake.Directions.RIGHT);
+            } else if (key == KeyEvent.VK_UP && !snake.isDownDirection()) {
+                snake.setCurrentDirection(Snake.Directions.UP);
+            } else if (key == KeyEvent.VK_DOWN && !snake.isUpDirection()) {
+                snake.setCurrentDirection(Snake.Directions.DOWN);
             }
         }
     }

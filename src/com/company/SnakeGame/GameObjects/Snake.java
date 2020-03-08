@@ -5,13 +5,18 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 
 public final class Snake {
+    public enum Directions {
+        LEFT, UP, RIGHT, DOWN
+    }
+
     private final Image snakeDotImage;
     private final int dotSize;
-
     private int size;
 
     private final int[] xs;
     private final int[] ys;
+
+    private Directions currentDirection;
 
     public Snake(
             @NotNull Image snakeDotImage,
@@ -21,12 +26,13 @@ public final class Snake {
     ) {
         this.snakeDotImage = snakeDotImage;
         this.dotSize = dotSize;
-
         size = 3;
 
         xs = new int[maxSize];
         ys = new int[xs.length];
         initCoords(startX);
+
+        currentDirection = Directions.RIGHT;
     }
 
     private void initCoords(final int startX) {
@@ -78,5 +84,29 @@ public final class Snake {
 
     public void decY(int index) {
         ys[0] -= dotSize;
+    }
+
+    public Directions getCurrentDirection() {
+        return currentDirection;
+    }
+
+    public void setCurrentDirection(Directions direction) {
+        currentDirection = direction;
+    }
+
+    public boolean isLeftDirection() {
+        return currentDirection == Directions.LEFT;
+    }
+
+    public boolean isUpDirection() {
+        return currentDirection == Directions.UP;
+    }
+
+    public boolean isRightDirection() {
+        return currentDirection == Directions.RIGHT;
+    }
+
+    public boolean isDownDirection() {
+        return currentDirection == Directions.DOWN;
     }
 }
