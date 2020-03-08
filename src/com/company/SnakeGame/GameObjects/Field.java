@@ -33,7 +33,6 @@ public class Field extends JPanel implements ActionListener {
     Timer timer;
 
     private final int dotSize;
-
     private final Snake snake;
     private final Apple apple;
     private final Random random;
@@ -60,14 +59,12 @@ public class Field extends JPanel implements ActionListener {
         setFocusable(true);
         addKeyListener(new FieldKeyListener());
 
-        initGame();
+        startGame();
     }
 
-    public void initGame() {
-        Timer timer = new Timer(250, this);
+    private void startGame() {
+        randomAppleCoords();
         timer.start();
-
-        changeAppleCoords();
     }
 
     private void randomAppleCoords() {
