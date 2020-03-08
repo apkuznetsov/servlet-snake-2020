@@ -1,5 +1,7 @@
 package com.company.SnakeGame;
 
+import org.jetbrains.annotations.NotNull;
+
 public final class Settings {
     // region статика
     public static final String TITLE = "Змейка";

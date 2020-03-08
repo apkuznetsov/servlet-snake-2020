@@ -1,6 +1,7 @@
 package com.company.SnakeGame.GameObjects;
 
 import com.company.SnakeGame.GameObjects.Apple;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,5 +1,7 @@
 package com.company.SnakeGame.GameObjects;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.*;
 
 public final class Snake {
