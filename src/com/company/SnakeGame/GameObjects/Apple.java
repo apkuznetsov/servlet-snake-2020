@@ -15,12 +15,6 @@ public final class Apple {
         y = 0;
     }
 
-    public Apple(Image image, int x, int y) {
-        this.image = image;
-        this.x = x;
-        this.y = y;
-    }
-
     public Image getImage() {
         return image;
     }
