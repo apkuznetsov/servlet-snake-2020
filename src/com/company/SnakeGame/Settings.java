@@ -15,6 +15,13 @@ public final class Settings {
     public static final String SNAKE_DOT_IMAGE_LOCATION = "snake-dot.png";
     // endregion
 
-    public Settings() {
+    final String snakeDotImageLocation;
+
+    public Settings(@NotNull final String snakeDotImageLocation) {
+        this.snakeDotImageLocation = snakeDotImageLocation;
+    }
+
+    public String getSnakeDotImageLocation() {
+        return snakeDotImageLocation;
     }
 }

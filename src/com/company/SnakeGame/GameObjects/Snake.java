@@ -9,7 +9,7 @@ public final class Snake {
     private int x;
     private int y;
 
-    public Snake(Image snakeDotImage) {
+    public Snake(@NotNull final Image snakeDotImage) {
         this.snakeDotImage = snakeDotImage;
         x = 0;
         y = 0;

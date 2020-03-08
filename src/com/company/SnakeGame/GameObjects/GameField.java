@@ -14,9 +14,8 @@ import java.util.Random;
 import static com.company.SnakeGame.Settings.*;
 
 public class GameField extends JPanel implements ActionListener {
+    private final Snake snake;
     private final Apple apple;
-
-    private Image snakeDotImage;
 
     private int[] snakeX = new int[ALL_DOTS];
     private int[] snakeY = new int[ALL_DOTS];
@@ -31,10 +30,9 @@ public class GameField extends JPanel implements ActionListener {
     private boolean down = false;
     private boolean isInGame = true;
 
-    public GameField() {
+    public GameField(@NotNull Image snakeDotImage) {
+        snake = new Snake(snakeDotImage);
         apple = new Apple(new ImageIcon(APPLE_IMAGE_LOCATION).getImage());
-
-
 
         this.setBorder(BorderFactory.createLineBorder(Color.white));
         setSize(WINDOW_SIZE, WINDOW_SIZE);
@@ -45,7 +43,6 @@ public class GameField extends JPanel implements ActionListener {
         setFocusable(true);
         addKeyListener(new FieldKeyListener());
 
-        loadImages();
         initGame();
     }
 
@@ -68,10 +65,6 @@ public class GameField extends JPanel implements ActionListener {
         apple.setY(new Random().nextInt(WINDOW_SIZE / DOT_SIZE) * DOT_SIZE);
     }
 
-    public void loadImages() {
-        snakeDotImage = new ImageIcon(SNAKE_DOT_IMAGE_LOCATION).getImage();
-    }
-
     @Override
     protected void paintComponent(Graphics gr) {
         super.paintComponent(gr);
@@ -80,7 +73,7 @@ public class GameField extends JPanel implements ActionListener {
             gr.drawImage(apple.getImage(), apple.getX(), apple.getY(), this);
 
             for (int i = 0; i < snakeSize; i++) {
-                gr.drawImage(snakeDotImage, snakeX[i], snakeY[i], this);
+                gr.drawImage(snake.getSnakeDotImage(), snakeX[i], snakeY[i], this);
             }
         } else {
             String str = "Game Over";
