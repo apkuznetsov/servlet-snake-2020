@@ -122,11 +122,19 @@ public class Field extends JPanel implements ActionListener {
         if (snake.getX(0) < 0) {
             isPlaying = false;
         }
-        if (snake.getY(0) > this.getHeight()) {
-            isPlaying = false;
+
+    private void drawSnake(Graphics gr) {
+        for (int snakeDot = 0; snakeDot < snake.getSize(); snakeDot++) {
+            gr.drawImage(snake.getSnakeDotImage(), snake.getX(snakeDot), snake.getY(snakeDot), this);
         }
-        if (snake.getY(0) < 0) {
-            isPlaying = false;
-        }
+    }
+
+    private void drawApple(Graphics gr) {
+        gr.drawImage(apple.getImage(), apple.getX(), apple.getY(), this);
+    }
+
+    private void drawGameOver(Graphics gr) {
+        gr.setColor(Color.WHITE);
+        gr.drawString("Игра окончена", this.getWidth() / 2, this.getHeight() / 2);
     }
 }
