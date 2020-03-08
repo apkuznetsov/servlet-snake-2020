@@ -1,6 +1,5 @@
 package com.company.SnakeGame.GameObjects;
 
-import com.company.SnakeGame.GameObjects.Apple;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -30,9 +29,13 @@ public class GameField extends JPanel implements ActionListener {
     private boolean down = false;
     private boolean isInGame = true;
 
-    public GameField(@NotNull Image snakeDotImage) {
+    public GameField(
+            @NotNull Image snakeDotImage,
+            @NotNull Image appleImage
+    ) {
+
         snake = new Snake(snakeDotImage);
-        apple = new Apple(new ImageIcon(APPLE_IMAGE_LOCATION).getImage());
+        apple = new Apple(appleImage);
 
         this.setBorder(BorderFactory.createLineBorder(Color.white));
         setSize(WINDOW_SIZE, WINDOW_SIZE);
