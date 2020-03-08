@@ -19,8 +19,6 @@ public class GameField extends JPanel implements ActionListener {
     private int[] snakeX = new int[ALL_DOTS];
     private int[] snakeY = new int[ALL_DOTS];
 
-    private int snakeSize;
-
     private Timer timer;
 
     private boolean left = false;
@@ -50,9 +48,7 @@ public class GameField extends JPanel implements ActionListener {
     }
 
     public void initGame() {
-        snakeSize = 3;
-
-        for (int i = 0; i < snakeSize; i++) {
+        for (int i = 0; i < snake.getSize(); i++) {
             snakeX[i] = 48 - i * DOT_SIZE;
             snakeY[i] = 48;
         }
@@ -75,7 +71,7 @@ public class GameField extends JPanel implements ActionListener {
         if (isInGame) {
             gr.drawImage(apple.getImage(), apple.getX(), apple.getY(), this);
 
-            for (int i = 0; i < snakeSize; i++) {
+            for (int i = 0; i < snake.getSize(); i++) {
                 gr.drawImage(snake.getSnakeDotImage(), snakeX[i], snakeY[i], this);
             }
         } else {
@@ -88,7 +84,7 @@ public class GameField extends JPanel implements ActionListener {
     }
 
     public void move() {
-        for (int i = snakeSize; i > 0; i--) {
+        for (int i = snake.getSize(); i > 0; i--) {
             snakeX[i] = snakeX[i - 1];
             snakeY[i] = snakeY[i - 1];
         }
@@ -117,14 +113,13 @@ public class GameField extends JPanel implements ActionListener {
 
     public void checkApple() {
         if (snakeX[0] == apple.getX() && snakeY[0] == apple.getY()) {
-            snakeSize++;
+            snake.incSize();
             changeAppleCoords();
         }
-
     }
 
     public void checkCollisions() {
-        for (int i = snakeSize; i > 0; i--) {
+        for (int i = snake.getSize(); i > 0; i--) {
             if (i > 4 && snakeX[0] == snakeX[i] && snakeY[0] == snakeY[i]) {
                 isInGame = false;
             }
