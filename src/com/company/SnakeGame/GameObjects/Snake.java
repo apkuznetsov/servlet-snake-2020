@@ -4,49 +4,42 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
-public final class Snake {
-    private static int SIZE = 3;
+import static com.company.SnakeGame.Settings.DOT_SIZE;
 
+public final class Snake {
     private final Image snakeDotImage;
-    private int x;
-    private int y;
+    private final int dotSize;
 
     private int size;
 
-    public Snake(@NotNull final Image snakeDotImage) {
-        this.snakeDotImage = snakeDotImage;
-        x = 0;
-        y = 0;
+    private final int[] xCoords;
+    private final int[] yCoords;
 
-        size = SIZE;
+    public Snake(
+            @NotNull Image snakeDotImage,
+            final int dotSize,
+            final int maxSize,
+            final int startX
+    ) {
+        this.snakeDotImage = snakeDotImage;
+        this.dotSize = dotSize;
+
+        size = 3;
+
+        xCoords = new int[maxSize];
+        yCoords = new int[xCoords.length];
+        initDots(startX);
     }
 
-    public Snake(Image snakeDotImage, int x, int y) {
-        this.snakeDotImage = snakeDotImage;
-        this.x = x;
-        this.y = y;
-
-        size = SIZE;
+    private void initDots(final int startX) {
+        for (int dotIndex = 0; dotIndex < getSize(); dotIndex++) {
+            xCoords[dotIndex] = startX - dotIndex * dotSize;
+            yCoords[dotIndex] = startX;
+        }
     }
 
     public Image getSnakeDotImage() {
         return snakeDotImage;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public int getSize() {

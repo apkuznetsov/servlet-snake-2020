@@ -13,11 +13,12 @@ import java.util.Random;
 import static com.company.SnakeGame.Settings.*;
 
 public class Field extends JPanel implements ActionListener {
+    // region статика
+    private static int START_X = 48;
+    // endregion
+
     private final Snake snake;
     private final Apple apple;
-
-    private int[] snakeX = new int[ALL_DOTS];
-    private int[] snakeY = new int[ALL_DOTS];
 
     private Timer timer;
 
@@ -32,7 +33,7 @@ public class Field extends JPanel implements ActionListener {
             @NotNull Image appleImage
     ) {
 
-        snake = new Snake(snakeDotImage);
+        snake = new Snake(snakeDotImage, DOT_SIZE, ALL_DOTS, START_X);
         apple = new Apple(appleImage);
 
         this.setBorder(BorderFactory.createLineBorder(Color.white));
@@ -48,11 +49,6 @@ public class Field extends JPanel implements ActionListener {
     }
 
     public void initGame() {
-        for (int i = 0; i < snake.getSize(); i++) {
-            snakeX[i] = 48 - i * DOT_SIZE;
-            snakeY[i] = 48;
-        }
-
         timer = new Timer(250, this);
         timer.start();
 
