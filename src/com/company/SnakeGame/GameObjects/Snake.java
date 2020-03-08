@@ -10,8 +10,8 @@ public final class Snake {
 
     private int size;
 
-    private final int[] xCoords;
-    private final int[] yCoords;
+    private final int[] xs;
+    private final int[] ys;
 
     public Snake(
             @NotNull Image snakeDotImage,
@@ -24,15 +24,15 @@ public final class Snake {
 
         size = 3;
 
-        xCoords = new int[maxSize];
-        yCoords = new int[xCoords.length];
-        initDots(startX);
+        xs = new int[maxSize];
+        ys = new int[xs.length];
+        initCoords(startX);
     }
 
-    private void initDots(final int startX) {
+    private void initCoords(final int startX) {
         for (int dotIndex = 0; dotIndex < getSize(); dotIndex++) {
-            xCoords[dotIndex] = startX - dotIndex * dotSize;
-            yCoords[dotIndex] = startX;
+            xs[dotIndex] = startX - dotIndex * dotSize;
+            ys[dotIndex] = startX;
         }
     }
 
@@ -49,18 +49,34 @@ public final class Snake {
     }
 
     public int getX(int index) {
-        return xCoords[index];
+        return xs[index];
     }
 
     public int getY(int index) {
-        return yCoords[index];
+        return ys[index];
     }
 
     public void setX(int index, int value) {
-        xCoords[index] = value;
+        xs[index] = value;
     }
 
     public void setY(int index, int value) {
-        yCoords[index] = value;
+        ys[index] = value;
+    }
+
+    public void incX(int index) {
+        xs[0] += dotSize;
+    }
+
+    public void decX(int index) {
+        xs[0] -= dotSize;
+    }
+
+    public void incY(int index) {
+        ys[0] += dotSize;
+    }
+
+    public void decY(int index) {
+        ys[0] -= dotSize;
     }
 }

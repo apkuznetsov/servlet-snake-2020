@@ -86,13 +86,13 @@ public class Field extends JPanel implements ActionListener {
         }
 
         if (left) {
-            snakeX[0] -= DOT_SIZE;
+            snake.decX(0);
         } else if (right) {
-            snakeX[0] += DOT_SIZE;
+            snake.incX(0);
         } else if (up) {
-            snakeY[0] -= DOT_SIZE;
+            snake.decY(0);
         } else if (down) {
-            snakeY[0] += DOT_SIZE;
+            snake.incY(0);
         }
     }
 
