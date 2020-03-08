@@ -1,9 +1,11 @@
-package com.company.Game;
+package com.company.SnakeGame;
+
+import com.company.SnakeGame.GameObjects.GameField;
 
 import javax.swing.*;
 
-import static com.company.Game.Settings.TITLE;
-import static com.company.Game.Settings.WINDOW_SIZE;
+import static com.company.SnakeGame.Settings.TITLE;
+import static com.company.SnakeGame.Settings.WINDOW_SIZE;
 
 public class MainWindow extends JFrame {
     public MainWindow() {

@@ -1,6 +1,5 @@
-package com.company.Game.GameObjects;
+package com.company.SnakeGame.GameObjects;
 
-import javax.swing.*;
 import java.awt.*;
 
 public final class Apple {

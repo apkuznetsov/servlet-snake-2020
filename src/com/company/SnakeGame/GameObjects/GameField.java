@@ -1,6 +1,6 @@
-package com.company.Game;
+package com.company.SnakeGame.GameObjects;
 
-import com.company.Game.GameObjects.Apple;
+import com.company.SnakeGame.GameObjects.Apple;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
-import static com.company.Game.Settings.*;
+import static com.company.SnakeGame.Settings.*;
 
 public class GameField extends JPanel implements ActionListener {
     private final Apple apple;
@@ -31,7 +31,14 @@ public class GameField extends JPanel implements ActionListener {
     private boolean isInGame = true;
 
     public GameField() {
-        apple = new Apple(new ImageIcon(SNAKE_DOT_IMAGE).getImage());
+        apple = new Apple(new ImageIcon(APPLE_IMAGE_LOCATION).getImage());
+
+
+
+        this.setBorder(BorderFactory.createLineBorder(Color.white));
+        setSize(WINDOW_SIZE, WINDOW_SIZE);
+        System.out.println(this.getWidth());
+        System.out.println(this.getHeight());
 
         setBackground(Color.black);
         setFocusable(true);
@@ -52,16 +59,16 @@ public class GameField extends JPanel implements ActionListener {
         timer = new Timer(250, this);
         timer.start();
 
-        createApple();
+        changeAppleCoords();
     }
 
-    public void createApple() {
-        appleX = new Random().nextInt(WINDOW_SIZE / DOT_SIZE) * DOT_SIZE;
-        appleY = new Random().nextInt(WINDOW_SIZE / DOT_SIZE) * DOT_SIZE;
+    public void changeAppleCoords() {
+        apple.setX(new Random().nextInt(WINDOW_SIZE / DOT_SIZE) * DOT_SIZE);
+        apple.setY(new Random().nextInt(WINDOW_SIZE / DOT_SIZE) * DOT_SIZE);
     }
 
     public void loadImages() {
-        snakeDotImage = new ImageIcon(SNAKE_DOT_IMAGE).getImage();
+        snakeDotImage = new ImageIcon(SNAKE_DOT_IMAGE_LOCATION).getImage();
     }
 
     @Override
@@ -69,7 +76,7 @@ public class GameField extends JPanel implements ActionListener {
         super.paintComponent(gr);
 
         if (isInGame) {
-            gr.drawImage(appleImage, appleX, appleY, this);
+            gr.drawImage(apple.getImage(), apple.getX(), apple.getY(), this);
 
             for (int i = 0; i < snakeSize; i++) {
                 gr.drawImage(snakeDotImage, snakeX[i], snakeY[i], this);
@@ -112,9 +119,9 @@ public class GameField extends JPanel implements ActionListener {
     }
 
     public void checkApple() {
-        if (snakeX[0] == appleX && snakeY[0] == appleY) {
+        if (snakeX[0] == apple.getX() && snakeY[0] == apple.getY()) {
             snakeSize++;
-            createApple();
+            changeAppleCoords();
         }
 
     }
