@@ -68,7 +68,7 @@ public class Field extends JPanel implements ActionListener {
             gr.drawImage(apple.getImage(), apple.getX(), apple.getY(), this);
 
             for (int i = 0; i < snake.getSize(); i++) {
-                gr.drawImage(snake.getSnakeDotImage(), snakeX[i], snakeY[i], this);
+                gr.drawImage(snake.getSnakeDotImage(), snake.getX(i), snake.getY(i), this);
             }
         } else {
             String str = "Game Over";
@@ -81,8 +81,8 @@ public class Field extends JPanel implements ActionListener {
 
     public void move() {
         for (int i = snake.getSize(); i > 0; i--) {
-            snakeX[i] = snakeX[i - 1];
-            snakeY[i] = snakeY[i - 1];
+            snake.setX(i, snake.getX(i - 1));
+            snake.setY(i, snake.getY(i - 1));
         }
 
         if (left) {
@@ -108,7 +108,7 @@ public class Field extends JPanel implements ActionListener {
     }
 
     public void checkApple() {
-        if (snakeX[0] == apple.getX() && snakeY[0] == apple.getY()) {
+        if (snake.getX(0) == apple.getX() && snake.getY(0) == apple.getY()) {
             snake.incSize();
             changeAppleCoords();
         }
@@ -116,21 +116,21 @@ public class Field extends JPanel implements ActionListener {
 
     public void checkCollisions() {
         for (int i = snake.getSize(); i > 0; i--) {
-            if (i > 4 && snakeX[0] == snakeX[i] && snakeY[0] == snakeY[i]) {
+            if (i > 4 && snake.getX(0) == snake.getX(i) && snake.getY(0) == snake.getY(i)) {
                 isInGame = false;
             }
         }
 
-        if (snakeX[0] > WINDOW_SIZE) {
+        if (snake.getX(0) > WINDOW_SIZE) {
             isInGame = false;
         }
-        if (snakeX[0] < 0) {
+        if (snake.getX(0) < 0) {
             isInGame = false;
         }
-        if (snakeY[0] > WINDOW_SIZE) {
+        if (snake.getY(0) > WINDOW_SIZE) {
             isInGame = false;
         }
-        if (snakeY[0] < 0) {
+        if (snake.getY(0) < 0) {
             isInGame = false;
         }
     }
