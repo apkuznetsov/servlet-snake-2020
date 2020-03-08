@@ -17,12 +17,28 @@ public class Field extends JPanel implements ActionListener {
     private static int START_X = 48;
     // endregion
 
+    private class FieldKeyListener extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent ev) {
+            super.keyPressed(ev);
+            int key = ev.getKeyCode();
+
+            if (key == KeyEvent.VK_LEFT && !snake.isMovingRight()) {
+                snake.setMovingDirection(Snake.Directions.LEFT);
+            } else if (key == KeyEvent.VK_RIGHT && !snake.isMovingLeft()) {
+                snake.setMovingDirection(Snake.Directions.RIGHT);
+            } else if (key == KeyEvent.VK_UP && !snake.isMovingDown()) {
+                snake.setMovingDirection(Snake.Directions.UP);
+            } else if (key == KeyEvent.VK_DOWN && !snake.isMovingUp()) {
+                snake.setMovingDirection(Snake.Directions.DOWN);
+            }
+        }
+    }
+
+    private boolean isPlaying = true;
+
     private final Snake snake;
     private final Apple apple;
-
-    private Timer timer;
-
-    private boolean isInGame = true;
 
     public Field(
             @NotNull Image snakeDotImage,
@@ -45,7 +61,7 @@ public class Field extends JPanel implements ActionListener {
     }
 
     public void initGame() {
-        timer = new Timer(250, this);
+        Timer timer = new Timer(250, this);
         timer.start();
 
         changeAppleCoords();
@@ -60,7 +76,7 @@ public class Field extends JPanel implements ActionListener {
     protected void paintComponent(Graphics gr) {
         super.paintComponent(gr);
 
-        if (isInGame) {
+        if (isPlaying) {
             gr.drawImage(apple.getImage(), apple.getX(), apple.getY(), this);
 
             for (int i = 0; i < snake.getSize(); i++) {
@@ -77,7 +93,7 @@ public class Field extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        if (isInGame) {
+        if (isPlaying) {
             checkApple();
             checkCollisions();
             snake.move();
@@ -96,39 +112,21 @@ public class Field extends JPanel implements ActionListener {
     public void checkCollisions() {
         for (int i = snake.getSize(); i > 0; i--) {
             if (i > 4 && snake.getX(0) == snake.getX(i) && snake.getY(0) == snake.getY(i)) {
-                isInGame = false;
+                isPlaying = false;
             }
         }
 
         if (snake.getX(0) > WINDOW_SIZE) {
-            isInGame = false;
+            isPlaying = false;
         }
         if (snake.getX(0) < 0) {
-            isInGame = false;
+            isPlaying = false;
         }
         if (snake.getY(0) > WINDOW_SIZE) {
-            isInGame = false;
+            isPlaying = false;
         }
         if (snake.getY(0) < 0) {
-            isInGame = false;
-        }
-    }
-
-    class FieldKeyListener extends KeyAdapter {
-        @Override
-        public void keyPressed(KeyEvent ev) {
-            super.keyPressed(ev);
-            int key = ev.getKeyCode();
-
-            if (key == KeyEvent.VK_LEFT && !snake.isMovingRight()) {
-                snake.setMovingDirection(Snake.Directions.LEFT);
-            } else if (key == KeyEvent.VK_RIGHT && !snake.isMovingLeft()) {
-                snake.setMovingDirection(Snake.Directions.RIGHT);
-            } else if (key == KeyEvent.VK_UP && !snake.isMovingDown()) {
-                snake.setMovingDirection(Snake.Directions.UP);
-            } else if (key == KeyEvent.VK_DOWN && !snake.isMovingUp()) {
-                snake.setMovingDirection(Snake.Directions.DOWN);
-            }
+            isPlaying = false;
         }
     }
 }
