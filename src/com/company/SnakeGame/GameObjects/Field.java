@@ -36,6 +36,7 @@ public class Field extends JPanel implements ActionListener {
 
     private final Snake snake;
     private final Apple apple;
+    private final Random random;
 
     public Field(@NotNull Settings settings) {
         setSize(settings.getWindowSizePerDimension(), settings.getWindowSizePerDimension());
@@ -47,6 +48,7 @@ public class Field extends JPanel implements ActionListener {
                 this.dotSize, settings.getAllDotsNumber(),
                 this.getWidth() / 2);
         apple = new Apple(new ImageIcon(settings.getAppleImageLocation()).getImage());
+        random = new Random();
 
         this.setBorder(BorderFactory.createLineBorder(Color.white));
 
@@ -67,9 +69,9 @@ public class Field extends JPanel implements ActionListener {
         changeAppleCoords();
     }
 
-    public void changeAppleCoords() {
-        apple.setX(new Random().nextInt(this.getWidth() / dotSize) * dotSize);
-        apple.setY(new Random().nextInt(this.getHeight() / dotSize) * dotSize);
+    private void randomAppleCoords() {
+        apple.setX(random.nextInt(this.getWidth() / dotSize) * dotSize);
+        apple.setY(random.nextInt(this.getHeight() / dotSize) * dotSize);
     }
 
     @Override
