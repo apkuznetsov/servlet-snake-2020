@@ -8,8 +8,14 @@ public final class Apple {
     private int x;
     private int y;
 
-    public Apple(String imageLocation, int x, int y) {
-        image = new ImageIcon(imageLocation).getImage();
+    public Apple(Image image) {
+        this.image = image;
+        x = 0;
+        y = 0;
+    }
+
+    public Apple(Image image, int x, int y) {
+        this.image = image;
         this.x = x;
         this.y = y;
     }
