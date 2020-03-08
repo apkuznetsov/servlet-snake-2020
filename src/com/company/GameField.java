@@ -31,6 +31,9 @@ public class GameField extends JPanel {
     public GameField() {
         setBackground(Color.black);
         loadImages();
+
+        setFocusable(true);
+        addKeyListener(new FieldKeyListener());
     }
 
     public void loadImages() {
@@ -39,5 +42,30 @@ public class GameField extends JPanel {
 
         ImageIcon iiDot = new ImageIcon("dot.png");
         dot = iiDot.getImage();
+    }
+    class FieldKeyListener extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent ev) {
+            super.keyPressed(ev);
+            int key = ev.getKeyCode();
+
+            if (key == KeyEvent.VK_LEFT && !right) {
+                left = true;
+                up = false;
+                down = false;
+            } else if (key == KeyEvent.VK_RIGHT && !left) {
+                right = true;
+                up = false;
+                down = false;
+            } else if (key == KeyEvent.VK_UP && !down) {
+                up = true;
+                left = false;
+                right = false;
+            } else if (key == KeyEvent.VK_DOWN && !up) {
+                down = true;
+                left = false;
+                right = false;
+            }
+        }
     }
 }
