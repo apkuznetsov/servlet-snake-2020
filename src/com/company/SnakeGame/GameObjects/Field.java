@@ -75,51 +75,57 @@ public class Field extends JPanel implements ActionListener {
     }
 
     @Override
-    protected void paintComponent(Graphics gr) {
-        super.paintComponent(gr);
-
-        if (isPlaying) {
-            gr.drawImage(apple.getImage(), apple.getX(), apple.getY(), this);
-
-            for (int i = 0; i < snake.getSize(); i++) {
-                gr.drawImage(snake.getSnakeDotImage(), snake.getX(i), snake.getY(i), this);
-            }
-        } else {
-            String str = "Game Over";
-            //Font font = new Font("Arial", 14, Font.BOLD);
-            gr.setColor(Color.WHITE);
-            //gr.setFont(font);
-            gr.drawString(str, 120, this.getWidth() / 2);
-        }
-    }
-
-    @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        if (isPlaying) {
-            checkApple();
-            checkCollisions();
+        if (isPlaying
+                && !isBadCollision()) {
+
+            if (isAppleCollision()) {
+                snake.incSize();
+                randomAppleCoords();
+            }
+
             snake.move();
         }
 
         repaint();
     }
 
-    public void checkApple() {
-        if (snake.getX(0) == apple.getX() && snake.getY(0) == apple.getY()) {
-            snake.incSize();
-            changeAppleCoords();
-        }
+    private boolean isBadCollision() {
+        return isSnakeCollision() || isBorderCollision();
     }
 
-    public void checkCollisions() {
+    private boolean isSnakeCollision() {
         for (int i = snake.getSize(); i > 0; i--) {
-            if (i > 4 && snake.getX(0) == snake.getX(i) && snake.getY(0) == snake.getY(i)) {
+            if (i > 4
+                    && snake.getX(0) == snake.getX(i)
+                    && snake.getY(0) == snake.getY(i)) {
+
                 isPlaying = false;
+                return true;
             }
         }
 
-        if (snake.getX(0) > this.getWidth()) {
+        return false;
+    }
+
+    private boolean isBorderCollision() {
+        if (snake.getX(0) > this.getWidth()
+                || snake.getX(0) < 0
+                || snake.getY(0) > this.getHeight()
+                || snake.getY(0) < 0) {
+
             isPlaying = false;
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean isAppleCollision() {
+        return snake.getX(0) == apple.getX()
+                && snake.getY(0) == apple.getY();
+    }
+
         }
         if (snake.getX(0) < 0) {
             isPlaying = false;
