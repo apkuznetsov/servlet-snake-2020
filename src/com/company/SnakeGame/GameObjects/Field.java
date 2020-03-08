@@ -10,13 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
-import static com.company.SnakeGame.Settings.*;
-
 public class Field extends JPanel implements ActionListener {
-    // region статика
-    private static int START_X = 48;
-    // endregion
-
     private class FieldKeyListener extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent ev) {
@@ -37,15 +31,19 @@ public class Field extends JPanel implements ActionListener {
 
     private boolean isPlaying = true;
 
+    private final int dotSize;
+
     private final Snake snake;
     private final Apple apple;
 
     public Field(
+            final int dotSize,
             @NotNull Image snakeDotImage,
             @NotNull Image appleImage
     ) {
+        this.dotSize = dotSize;
 
-        snake = new Snake(snakeDotImage, DOT_SIZE, ALL_DOTS, START_X);
+        snake = new Snake(snakeDotImage, this.dotSize, ALL_DOTS, WINDOW_SIZE / 2);
         apple = new Apple(appleImage);
 
         this.setBorder(BorderFactory.createLineBorder(Color.white));
@@ -68,8 +66,8 @@ public class Field extends JPanel implements ActionListener {
     }
 
     public void changeAppleCoords() {
-        apple.setX(new Random().nextInt(WINDOW_SIZE / DOT_SIZE) * DOT_SIZE);
-        apple.setY(new Random().nextInt(WINDOW_SIZE / DOT_SIZE) * DOT_SIZE);
+        apple.setX(new Random().nextInt(WINDOW_SIZE / dotSize) * dotSize);
+        apple.setY(new Random().nextInt(WINDOW_SIZE / dotSize) * dotSize);
     }
 
     @Override

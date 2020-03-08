@@ -5,9 +5,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
-import static com.company.SnakeGame.Settings.TITLE;
-import static com.company.SnakeGame.Settings.WINDOW_SIZE;
-
 public final class MainWindow extends JFrame {
     public MainWindow(@NotNull final Settings settings) {
         setTitle(TITLE);
@@ -15,6 +12,7 @@ public final class MainWindow extends JFrame {
 
         setSize(WINDOW_SIZE, WINDOW_SIZE);
         add(new Field(
+                settings.getDotSize(),
                 new ImageIcon(settings.getSnakeDotImageLocation()).getImage(),
                 new ImageIcon(settings.getAppleImageLocation()).getImage()
         ));
