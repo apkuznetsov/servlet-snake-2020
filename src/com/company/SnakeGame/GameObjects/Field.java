@@ -1,5 +1,6 @@
 package com.company.SnakeGame.GameObjects;
 
+import com.company.SnakeGame.Settings;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -36,18 +37,19 @@ public class Field extends JPanel implements ActionListener {
     private final Snake snake;
     private final Apple apple;
 
-    public Field(
-            final int dotSize,
-            @NotNull Image snakeDotImage,
-            @NotNull Image appleImage
-    ) {
-        this.dotSize = dotSize;
+    public Field(@NotNull Settings settings) {
+        setSize(settings.getWindowSizePerDimension(), settings.getWindowSizePerDimension());
 
-        snake = new Snake(snakeDotImage, this.dotSize, ALL_DOTS, WINDOW_SIZE / 2);
-        apple = new Apple(appleImage);
+        this.dotSize = settings.getDotSize();
+
+        snake = new Snake(
+                new ImageIcon(settings.getSnakeDotImageLocation()).getImage(),
+                this.dotSize, settings.getAllDotsNumber(),
+                this.getWidth() / 2);
+        apple = new Apple(new ImageIcon(settings.getAppleImageLocation()).getImage());
 
         this.setBorder(BorderFactory.createLineBorder(Color.white));
-        setSize(WINDOW_SIZE, WINDOW_SIZE);
+
         System.out.println(this.getWidth());
         System.out.println(this.getHeight());
 
@@ -66,8 +68,8 @@ public class Field extends JPanel implements ActionListener {
     }
 
     public void changeAppleCoords() {
-        apple.setX(new Random().nextInt(WINDOW_SIZE / dotSize) * dotSize);
-        apple.setY(new Random().nextInt(WINDOW_SIZE / dotSize) * dotSize);
+        apple.setX(new Random().nextInt(this.getWidth() / dotSize) * dotSize);
+        apple.setY(new Random().nextInt(this.getHeight() / dotSize) * dotSize);
     }
 
     @Override
@@ -85,7 +87,7 @@ public class Field extends JPanel implements ActionListener {
             //Font font = new Font("Arial", 14, Font.BOLD);
             gr.setColor(Color.WHITE);
             //gr.setFont(font);
-            gr.drawString(str, 120, WINDOW_SIZE / 2);
+            gr.drawString(str, 120, this.getWidth() / 2);
         }
     }
 
@@ -114,13 +116,13 @@ public class Field extends JPanel implements ActionListener {
             }
         }
 
-        if (snake.getX(0) > WINDOW_SIZE) {
+        if (snake.getX(0) > this.getWidth()) {
             isPlaying = false;
         }
         if (snake.getX(0) < 0) {
             isPlaying = false;
         }
-        if (snake.getY(0) > WINDOW_SIZE) {
+        if (snake.getY(0) > this.getHeight()) {
             isPlaying = false;
         }
         if (snake.getY(0) < 0) {
