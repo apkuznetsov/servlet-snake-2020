@@ -131,9 +131,9 @@ public class Field extends JPanel implements ActionListener {
     }
 
     private boolean isBorderCollision() {
-        if (snake.getX(0) > this.getWidth()
+        if (snake.getX(0) >= this.getWidth()
                 || snake.getX(0) < 0
-                || snake.getY(0) > this.getHeight()
+                || snake.getY(0) >= this.getHeight()
                 || snake.getY(0) < 0) {
 
             isPlaying = false;
