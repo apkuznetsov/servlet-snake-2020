@@ -18,12 +18,11 @@ public final class Snake {
 
     private Directions movingDirection;
 
-    public Snake(
-            @NotNull Image snakeDotImage,
-            final int dotSize,
-            final int maxSize,
-            final int startX
-    ) {
+    public Snake(@NotNull Image snakeDotImage,
+                 final int dotSize,
+                 final int maxSize,
+                 final int startX) {
+
         this.snakeDotImage = snakeDotImage;
         this.dotSize = dotSize;
         size = 3;
@@ -112,5 +111,9 @@ public final class Snake {
 
     public boolean isMovingDown() {
         return movingDirection == Directions.DOWN;
+    }
+
+    public int getMaxDotsNumber() {
+        return xs.length;
     }
 }

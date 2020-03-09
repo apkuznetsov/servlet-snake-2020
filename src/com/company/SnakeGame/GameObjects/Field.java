@@ -26,21 +26,29 @@ public class Field extends JPanel implements ActionListener {
                 snake.setMovingDirection(Snake.Directions.UP);
             } else if (key == KeyEvent.VK_DOWN && !snake.isMovingUp()) {
                 snake.setMovingDirection(Snake.Directions.DOWN);
+            } else if (key == KeyEvent.VK_ENTER && !isPlaying) {
+                restartGame();
             }
         }
     }
 
+    private final int dotSize;
+    private final int fieldSize;
+
     Timer timer;
     private boolean isPlaying;
 
-    private final int dotSize;
-    private final Snake snake;
+    private Snake snake;
     private final Apple apple;
     private final Random random;
 
     public Field(@NotNull Settings settings) {
-        setSize(settings.getWindowSizePerDimension(), settings.getWindowSizePerDimension());
-        setBorder(BorderFactory.createLineBorder(Color.white));
+        dotSize = settings.getDotSize();
+        fieldSize = settings.getWindowSizePerDimension();
+
+        setSize(fieldSize, fieldSize);
+        System.out.println(this.getWidth());
+        System.out.println(this.getHeight());
         setBackground(Color.black);
 
         addKeyListener(new FieldKeyListener());
@@ -48,11 +56,11 @@ public class Field extends JPanel implements ActionListener {
         timer = new Timer(100, this);
         isPlaying = true;
 
-        this.dotSize = settings.getDotSize();
         snake = new Snake(
                 new ImageIcon(settings.getSnakeDotImageLocation()).getImage(),
                 this.dotSize, settings.getAllDotsNumber(),
                 this.getWidth() / 2);
+
         apple = new Apple(new ImageIcon(settings.getAppleImageLocation()).getImage());
         random = new Random();
 
@@ -63,13 +71,29 @@ public class Field extends JPanel implements ActionListener {
     }
 
     private void startGame() {
-        randomAppleCoords();
         timer.start();
+        randomAppleCoords();
+    }
+
+    private void restartGame() {
+        setSize(fieldSize, fieldSize);
+
+        isPlaying = true;
+        timer.start();
+
+        snake = new Snake(
+                snake.getSnakeDotImage(),
+                this.dotSize,
+                snake.getMaxDotsNumber(),
+                this.getWidth() / 2);
+
+        randomAppleCoords();
     }
 
     private void randomAppleCoords() {
         apple.setX(random.nextInt(this.getWidth() / dotSize) * dotSize);
         apple.setY(random.nextInt(this.getHeight() / dotSize) * dotSize);
+        System.out.println("apple (" + apple.getX() + ", " + apple.getY() + ")");
     }
 
     @Override
@@ -149,6 +173,6 @@ public class Field extends JPanel implements ActionListener {
 
     private void drawGameOver(Graphics gr) {
         gr.setColor(Color.WHITE);
-        gr.drawString("Игра окончена", this.getWidth() / 2, this.getHeight() / 2);
+        gr.drawString("Игра окончена. Нажмите ENTER, чтобы сыграть ещё", this.getWidth() / 2, this.getHeight() / 2);
     }
 }
