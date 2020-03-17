@@ -1,7 +1,7 @@
 package com.company;
 
-import com.company.SnakeGame.Window;
 import com.company.SnakeGame.Settings;
+import com.company.SnakeGame.Window;
 
 import static com.company.SnakeGame.Settings.*;
 

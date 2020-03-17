@@ -11,44 +11,21 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
-public class Field extends JPanel implements ActionListener {
-    private class FieldKeyListener extends KeyAdapter {
-        @Override
-        public void keyPressed(KeyEvent ev) {
-            super.keyPressed(ev);
-            int key = ev.getKeyCode();
-
-            if (key == KeyEvent.VK_LEFT && !snake.isMovingRight()) {
-                snake.setMovingDirection(Snake.Directions.LEFT);
-            } else if (key == KeyEvent.VK_RIGHT && !snake.isMovingLeft()) {
-                snake.setMovingDirection(Snake.Directions.RIGHT);
-            } else if (key == KeyEvent.VK_UP && !snake.isMovingDown()) {
-                snake.setMovingDirection(Snake.Directions.UP);
-            } else if (key == KeyEvent.VK_DOWN && !snake.isMovingUp()) {
-                snake.setMovingDirection(Snake.Directions.DOWN);
-            } else if (key == KeyEvent.VK_ENTER && !isPlaying) {
-                restartGame();
-            }
-        }
-    }
-
+public class Board extends JPanel implements ActionListener {
     private final int dotSize;
     private final int fieldSize;
-
-    Timer timer;
-    private boolean isPlaying;
-
-    private Snake snake;
     private final Apple apple;
     private final Random random;
+    Timer timer;
+    private boolean isPlaying;
+    private Snake snake;
 
-    public Field(@NotNull Settings settings) {
+    public Board(@NotNull Settings settings) {
         dotSize = settings.getDotSize();
         fieldSize = settings.getWindowSizePerDimension();
 
-        setSize(fieldSize, fieldSize);
-        System.out.println(this.getWidth());
-        System.out.println(this.getHeight());
+        setSize(new Dimension(fieldSize, fieldSize));
+        setPreferredSize(new Dimension(fieldSize, fieldSize));
         setBackground(Color.black);
 
         addKeyListener(new FieldKeyListener());
@@ -174,5 +151,25 @@ public class Field extends JPanel implements ActionListener {
     private void drawGameOver(Graphics gr) {
         gr.setColor(Color.WHITE);
         gr.drawString("Игра окончена. Нажмите ENTER, чтобы сыграть ещё", this.getWidth() / 2, this.getHeight() / 2);
+    }
+
+    private class FieldKeyListener extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent ev) {
+            super.keyPressed(ev);
+            int key = ev.getKeyCode();
+
+            if (key == KeyEvent.VK_LEFT && !snake.isMovingRight()) {
+                snake.setMovingDirection(Snake.Directions.LEFT);
+            } else if (key == KeyEvent.VK_RIGHT && !snake.isMovingLeft()) {
+                snake.setMovingDirection(Snake.Directions.RIGHT);
+            } else if (key == KeyEvent.VK_UP && !snake.isMovingDown()) {
+                snake.setMovingDirection(Snake.Directions.UP);
+            } else if (key == KeyEvent.VK_DOWN && !snake.isMovingUp()) {
+                snake.setMovingDirection(Snake.Directions.DOWN);
+            } else if (key == KeyEvent.VK_ENTER && !isPlaying) {
+                restartGame();
+            }
+        }
     }
 }
