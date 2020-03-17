@@ -48,11 +48,6 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void startGame() {
-        timer.start();
-        randomAppleCoords();
-    }
-
-    private void restartGame() {
         isPlaying = true;
         timer.start();
 
@@ -165,7 +160,7 @@ public class Board extends JPanel implements ActionListener {
             } else if (key == KeyEvent.VK_DOWN && !snake.isMovingUp()) {
                 snake.setMovingDirection(Snake.Directions.DOWN);
             } else if (key == KeyEvent.VK_ENTER && !isPlaying) {
-                restartGame();
+                startGame();
             }
         }
     }
