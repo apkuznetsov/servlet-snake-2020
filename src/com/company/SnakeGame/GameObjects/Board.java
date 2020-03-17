@@ -25,7 +25,7 @@ public class Board extends JPanel implements ActionListener {
         dotSize = settings.getDotSize();
 
         setSize(new Dimension(settings.getWindowSizePerDimension(), settings.getWindowSizePerDimension()));
-        setPreferredSize(new Dimension(settings.getWindowSizePerDimension(), settings.getWindowSizePerDimension()));
+        setPreferredSize(getSize());
         setBackground(Color.black);
 
         addKeyListener(new FieldKeyListener());
