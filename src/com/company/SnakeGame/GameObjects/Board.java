@@ -48,16 +48,16 @@ public class Board extends JPanel implements ActionListener {
 
         snake = new Snake(
                 snake.getSnakeDotImage(),
-                this.dotSize,
+                dotSize,
                 snake.getMaxDotsNumber(),
-                this.getWidth() / 2);
+                getWidth() / 2);
 
         randomAppleCoords();
     }
 
     private void randomAppleCoords() {
-        apple.setX(random.nextInt(this.getWidth() / dotSize) * dotSize);
-        apple.setY(random.nextInt(this.getHeight() / dotSize) * dotSize);
+        apple.setX(random.nextInt(getWidth() / dotSize) * dotSize);
+        apple.setY(random.nextInt(getHeight() / dotSize) * dotSize);
     }
 
     @Override
@@ -95,9 +95,9 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private boolean isBorderCollision() {
-        if (snake.getX(0) >= this.getWidth()
+        if (snake.getX(0) >= getWidth()
                 || snake.getX(0) < 0
-                || snake.getY(0) >= this.getHeight()
+                || snake.getY(0) >= getHeight()
                 || snake.getY(0) < 0) {
 
             isPlaying = false;
@@ -137,7 +137,7 @@ public class Board extends JPanel implements ActionListener {
 
     private void drawGameOver(Graphics gr) {
         gr.setColor(Color.WHITE);
-        gr.drawString("Игра окончена. Нажмите ENTER, чтобы сыграть ещё", this.getWidth() / 2, this.getHeight() / 2);
+        gr.drawString("Игра окончена. Нажмите ENTER, чтобы сыграть ещё", getWidth() / 2, getHeight() / 2);
     }
 
     private class FieldKeyListener extends KeyAdapter {
