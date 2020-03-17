@@ -13,19 +13,19 @@ import java.util.Random;
 
 public class Board extends JPanel implements ActionListener {
     private final int dotSize;
-    private final int fieldSize;
-    private final Apple apple;
+
     private final Random random;
-    Timer timer;
+    private final Apple apple;
+
+    private Timer timer;
     private boolean isPlaying;
     private Snake snake;
 
-    public Board(@NotNull Settings settings) {
+    public Board(@NotNull final Settings settings) {
         dotSize = settings.getDotSize();
-        fieldSize = settings.getWindowSizePerDimension();
 
-        setSize(new Dimension(fieldSize, fieldSize));
-        setPreferredSize(new Dimension(fieldSize, fieldSize));
+        setSize(new Dimension(settings.getWindowSizePerDimension(), settings.getWindowSizePerDimension()));
+        setPreferredSize(new Dimension(settings.getWindowSizePerDimension(), settings.getWindowSizePerDimension()));
         setBackground(Color.black);
 
         addKeyListener(new FieldKeyListener());
@@ -53,8 +53,6 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void restartGame() {
-        setSize(fieldSize, fieldSize);
-
         isPlaying = true;
         timer.start();
 
@@ -70,7 +68,6 @@ public class Board extends JPanel implements ActionListener {
     private void randomAppleCoords() {
         apple.setX(random.nextInt(this.getWidth() / dotSize) * dotSize);
         apple.setY(random.nextInt(this.getHeight() / dotSize) * dotSize);
-        System.out.println("apple (" + apple.getX() + ", " + apple.getY() + ")");
     }
 
     @Override
