@@ -26,6 +26,8 @@ public class Board extends JPanel implements ActionListener {
         dotSize = settings.getDotSize();
         apple = new Apple(new ImageIcon(settings.getAppleImageLocation()).getImage());
         random = new Random();
+        snake = new Snake(new ImageIcon(settings.getSnakeDotImageLocation()).getImage(),
+                dotSize, settings.getAllDotsNumber(), getWidth() / 2);
         isPlaying = true;
         timer = new Timer(100, this);
 
