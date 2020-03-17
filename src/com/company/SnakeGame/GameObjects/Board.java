@@ -14,30 +14,28 @@ import java.util.Random;
 public class Board extends JPanel implements ActionListener {
     private final int dotSize;
 
-    private final Random random;
     private final Apple apple;
+    private final Random random;
 
-    private Timer timer;
-    private boolean isPlaying;
     private Snake snake;
+
+    private boolean isPlaying;
+    private Timer timer;
 
     public Board(@NotNull final Settings settings) {
         dotSize = settings.getDotSize();
+        apple = new Apple(new ImageIcon(settings.getAppleImageLocation()).getImage());
+        random = new Random();
+        isPlaying = true;
+        timer = new Timer(100, this);
+
+        addKeyListener(new FieldKeyListener());
 
         setSize(new Dimension(settings.getWindowSizePerDimension(), settings.getWindowSizePerDimension()));
         setPreferredSize(getSize());
         setBackground(Color.black);
-
-        addKeyListener(new FieldKeyListener());
-
-        timer = new Timer(100, this);
-        isPlaying = true;
-
-        apple = new Apple(new ImageIcon(settings.getAppleImageLocation()).getImage());
-        random = new Random();
-
-        setVisible(true);
         setFocusable(true);
+        setVisible(true);
 
         startGame();
     }
