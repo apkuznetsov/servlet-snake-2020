@@ -18,6 +18,14 @@ public final class Window extends JFrame {
 
         add(new Field(settings), BorderLayout.CENTER);
 
+        setLocationInCenter();
         setVisible(true);
+    }
+
+    private void setLocationInCenter() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(
+                screenSize.width / 2 - this.getSize().width / 2,
+                screenSize.height / 2 - this.getSize().height / 2);
     }
 }
