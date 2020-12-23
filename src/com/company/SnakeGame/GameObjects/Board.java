@@ -1,7 +1,6 @@
 package com.company.SnakeGame.GameObjects;
 
 import com.company.SnakeGame.Settings;
-import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +21,7 @@ public class Board extends JPanel implements ActionListener {
     private boolean isPlaying;
     private Timer timer;
 
-    public Board(@NotNull final Settings settings) {
+    public Board(final Settings settings) {
         dotSize = settings.getDotSize();
         apple = new Apple(new ImageIcon(settings.getAppleImageLocation()).getImage());
         random = new Random();

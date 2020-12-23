@@ -1,7 +1,5 @@
 package com.company.SnakeGame.GameObjects;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.awt.*;
 
 public final class Apple {
@@ -9,7 +7,7 @@ public final class Apple {
     private int x;
     private int y;
 
-    public Apple(@NotNull final Image image) {
+    public Apple(final Image image) {
         this.image = image;
         x = 0;
         y = 0;

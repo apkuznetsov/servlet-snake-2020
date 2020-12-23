@@ -1,7 +1,5 @@
 package com.company.SnakeGame;
 
-import org.jetbrains.annotations.NotNull;
-
 public final class Settings {
     // region статика
     public static final int DOT_SIZE = 16;
@@ -21,8 +19,8 @@ public final class Settings {
     public Settings(
             final int dotSize,
             final int dotNumberPerDimension,
-            @NotNull final String snakeDotImageLocation,
-            @NotNull final String appleImageLocation) {
+            final String snakeDotImageLocation,
+            final String appleImageLocation) {
 
         this.dotSize = dotSize;
 

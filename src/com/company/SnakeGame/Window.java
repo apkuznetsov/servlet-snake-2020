@@ -1,13 +1,12 @@
 package com.company.SnakeGame;
 
 import com.company.SnakeGame.GameObjects.Board;
-import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
 
 public final class Window extends JFrame {
-    public Window(@NotNull final Settings settings) {
+    public Window(final Settings settings) {
         super("Змейка");
 
         getContentPane().add(new Board(settings));

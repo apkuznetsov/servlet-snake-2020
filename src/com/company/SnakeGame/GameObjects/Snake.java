@@ -1,7 +1,5 @@
 package com.company.SnakeGame.GameObjects;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.awt.*;
 
 public final class Snake {
@@ -18,7 +16,7 @@ public final class Snake {
 
     private Directions movingDirection;
 
-    public Snake(@NotNull Image snakeDotImage,
+    public Snake(Image snakeDotImage,
                  final int dotSize,
                  final int maxSize,
                  final int startX) {
